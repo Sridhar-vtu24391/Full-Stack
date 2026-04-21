@@ -1,0 +1,45 @@
+package com.example.userservice;
+
+import com.example.userservice.service.UserService;
+import com.example.userservice.repository.UserRepository;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+public class UserServiceTest {
+
+    @Mock
+    private UserRepository repo;
+
+    @InjectMocks
+    private UserService service;
+
+    public UserServiceTest() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    void testGetUserById() {
+        when(repo.findById(1)).thenReturn(Optional.of("John"));
+
+        String result = service.getUserById(1);
+
+        assertEquals("John", result);
+    }
+
+    @Test
+    void testUserNotFound() {
+        when(repo.findById(2)).thenReturn(Optional.empty());
+
+        String result = service.getUserById(2);
+
+        assertEquals("User Not Found", result);
+    }
+}

@@ -1,0 +1,12 @@
+@RestController
+@RequestMapping("/users")
+public class UserController {
+
+    @Autowired
+    private UserService service;
+
+    @GetMapping("/{id}")
+    public String getUser(@PathVariable int id) {
+        return service.getUserById(id);
+    }
+}

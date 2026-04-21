@@ -1,0 +1,10 @@
+@Service
+public class UserService {
+
+    @Autowired
+    private UserRepository repo;
+
+    public String getUserById(int id) {
+        return repo.findById(id).orElse("User Not Found");
+    }
+}
