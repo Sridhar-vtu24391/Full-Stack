@@ -1,0 +1,19 @@
+package com.example.orderservice.controller;
+
+import com.example.orderservice.service.OrderProducer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/orders")
+public class OrderController {
+
+    @Autowired
+    private OrderProducer producer;
+
+    @GetMapping("/send/{id}")
+    public String sendOrder(@PathVariable String id) {
+        producer.sendOrder("Order ID: " + id);
+        return "Order Sent Successfully!";
+    }
+}

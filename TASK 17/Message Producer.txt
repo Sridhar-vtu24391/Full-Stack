@@ -1,0 +1,21 @@
+package com.example.orderservice.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+@Service
+public class OrderProducer {
+
+    @Autowired
+    private JmsTemplate jmsTemplate;
+
+    @Value("${queue.name}")
+    private String queue;
+
+    public void sendOrder(String order) {
+        jmsTemplate.convertAndSend(queue, order);
+        System.out.println("Order Sent: " + order);
+    }
+}
